@@ -1,0 +1,4 @@
+FROM postgres:9.6
+
+EXPOSE 5432/tcp
+ENV POSTGRES_USER=kong POSTGRES_DB=kong POSTGRES_PASSWORD=password

@@ -1,0 +1,26 @@
+# Using Dockerfiles and docker network to create kong environment.
+
+# ======Create Docker Network=======================
+# docker network create kongnet
+
+# ======Create Nginx container=======================
+# docker build -t nginx . -f nginx.dockerfile
+# docker run -d --network kongnet -p 80:80 --name nginx -it nginx
+
+# ======Create Postgres container===================
+# docker build -t kong-database . -f kongdb.dockerfile
+# docker run -d --network kongnet --name kong-database -it kong-database
+
+# ======Create Kong container=======================
+# docker build  --network kongnet -t kong . -f kong.dockerfile
+# docker run -d --network kongnet -p 8000:8000 --name kong -it kong
+#
+# Exec on the kong container:
+
+curl -i -X POST --url http://localhost:8001/services/ --data 'name=nginx' --data 'url=http://nginx'
+curl -i -X POST --url http://localhost:8001/services/nginx/routes --data 'hosts[]=nginx'
+curl -i -X GET --url http://localhost:8000/ --header 'Host: nginx'
+
+# Add '127.0.0.1 nginx.lumits.com. nginx' to C:\Windows\System32\drivers\etc\hosts
+
+View in local browser at http://nginx (add :80 if browser hijacks request and sends a search request to google)
