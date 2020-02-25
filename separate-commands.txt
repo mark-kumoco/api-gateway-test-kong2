@@ -24,3 +24,10 @@ curl -i -X GET --url http://localhost:8000/ --header 'Host: nginx'
 # Add '127.0.0.1 nginx.lumits.com. nginx' to C:\Windows\System32\drivers\etc\hosts (or which ever IP is suitable).
 
 View in local browser at http://nginx:8000/
+
+# ======Create Kong container=======================
+# docker build  --network kongnet -t konga . -f konga.dockerfile
+# docker run -d --network kongnet -p 1337:1337 --name konga -it konga
+
+View Konga in local browser on http://127.0.0.1:1337/
+Add a 'connection' to http://konga:8001 + click 'Activate'
