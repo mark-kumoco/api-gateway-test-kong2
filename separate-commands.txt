@@ -15,12 +15,12 @@
 # docker build  --network kongnet -t kong . -f kong.dockerfile
 # docker run -d --network kongnet -p 8000:8000 --name kong -it kong
 #
-# Exec on the kong container:
+# Exec on the kong container (docker exec -it kong sh):
 
 curl -i -X POST --url http://localhost:8001/services/ --data 'name=nginx' --data 'url=http://nginx'
 curl -i -X POST --url http://localhost:8001/services/nginx/routes --data 'hosts[]=nginx'
 curl -i -X GET --url http://localhost:8000/ --header 'Host: nginx'
 
-# Add '127.0.0.1 nginx.lumits.com. nginx' to C:\Windows\System32\drivers\etc\hosts
+# Add '127.0.0.1 nginx.lumits.com. nginx' to C:\Windows\System32\drivers\etc\hosts (or which ever IP is suitable).
 
-View in local browser at http://nginx (add :80 if browser hijacks request and sends a search request to google)
+View in local browser at http://nginx:8000/
